@@ -1,0 +1,96 @@
+<!--
+File: index.html
+Created: 12/3/2023
+GUI Assignment: Interactive Dynamic Table
+    My website consists of:
+    - a dynamic multiplication table that changes based off input 
+    - takes in numbers from -50 to 50
+    - organized in a clean and consistent way
+    - jQuery validation
+
+Sources: 
+    https://stackoverflow.com/questions/64134943/how-to-get-value-from-an-input-field-in-javascript?rq=3
+    https://stackoverflow.com/questions/28695617/how-to-get-a-number-value-from-an-input-field
+    https://www.youtube.com/watch?v=5Oq6Eqy7Y_A
+    https://www.w3schools.com/html/html_tables.asp
+    https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_table_center
+    https://www.w3schools.com/tags/tag_fieldset.asp
+    https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sticky_element
+    https://www.w3schools.com/howto/howto_css_sticky_element.asp
+    https://www.w3schools.com/html/html_forms.asp
+
+Copyright (c) 2023 by ThienTran. All rights reserved. 
+May be freely copied/excerpted for educational purposes 
+with credit to the author.
+
+Updated by TL on 12/3/2023
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <meta name="viewport" content="width=1000px"> -->
+        <title>Mult Table</title>
+        <!---CSS links-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300|Montserrat" rel="stylesheet" type="text/css">
+    </head>
+
+    <body class="main">
+        <h2>Dynamic Multiplication Table</h2>
+        <div class="wrapper">
+            <!--Container for form box-->
+            <div class="input-container" id="box">
+                <form id="myForm">
+                    <!--Implemented input boxes for number so that users can only input
+                    number related inputs instead random text-->
+                    <!--Added placeholder in order to show what kind of input the user should be
+                    expecting to put in-->
+                    <p>Please Input Number Ranges</p>
+                    <label for="min-col-val"  id="min-clabel">Minimum Column Value:</label>
+                    <input name="min_cInput" type="number" id="min_cVal" placeholder="1" required><br>
+                    <div id="sliderMinCol"></div>
+                    <label for="max-col-val"  id="max-clabel">Maximum Column Value:</label>
+                    <input name="max_cInput" type="number" id="max_cVal" placeholder="1" required><br>
+                    <div id="sliderMaxCol"></div>
+                    <label for="min-row-val" id="min-rlabel">Minimum Row Value:</label>
+                    <input name="min_rInput" type="number" id="min_rVal" placeholder="1" required><br>
+                    <div id="sliderMinRow"></div>
+                    <label for="max-row-val" id="max-rlabel">Maximum Row Value:</label>
+                    <input name="max_rInput" type="number" id="max_rVal" placeholder="1" required><br>
+                    <div id="sliderMaxRow"></div>
+                    <!--Reviewed forms in w3schools site link
+                        to help me out in this assignment
+                        -> https://www.w3schools.com/html/html_forms.asp-->
+                    <input type="submit" id="submit-btn" value="Save Table">
+                </form>
+            </div>
+
+            <!--Created a div with class so that when the table is scrolled, the top row and first
+            column would still be visible especially when we are dealing with a large range-->
+            <div class="table-wrapper" id="tab">
+                <table class="tableBox" id="Multiplication-Table"></table>
+            </div>
+        </div>
+
+        <!-- Created a button to delete all the tabs -->
+        <input type="submit" id="destroy-btn" value="Destroy all Tabs" onclick="destroyTabs()">
+
+        <div id="myTabs">
+            <ul></ul>
+        </div>
+
+        <!--Javascript links-->
+        <!--jQuery Stuff -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!--Added jQuery Validation Plugin to enable checks to see if input is valid for this program-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+        <!--Added jQuery UI Plugin to enable sliders and tabs within the site-->
+        <link href=" https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>

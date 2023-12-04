@@ -1,0 +1,232 @@
+/*
+File: style.css
+Created: 12/3/2023
+GUI Assignment: Interactive Dynamic Table
+    My website consists of:
+    - a dynamic multiplication table that changes based off input 
+    - takes in numbers from -50 to 50
+    - organized in a clean and consistent way
+    - jQuery validation
+
+Sources: 
+    https://stackoverflow.com/questions/64134943/how-to-get-value-from-an-input-field-in-javascript?rq=3
+    https://stackoverflow.com/questions/28695617/how-to-get-a-number-value-from-an-input-field
+    https://www.youtube.com/watch?v=5Oq6Eqy7Y_A
+    https://www.w3schools.com/html/html_tables.asp
+    https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_table_center
+    https://www.w3schools.com/tags/tag_fieldset.asp
+    https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sticky_element
+    https://www.w3schools.com/howto/howto_css_sticky_element.asp
+    https://www.w3schools.com/html/html_forms.asp
+    https://www.w3schools.com/jquery/html_html.asp
+
+Copyright (c) 2023 by ThienTran. All rights reserved. 
+May be freely copied/excerpted for educational purposes 
+with credit to the author.
+
+Updated by TL on 12/3/2023
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: mintcream;
+}
+
+/* Added text-shadow becaused it looked nice */
+/* Dark blue and light blue text shadow */
+h2, h4 {
+    font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
+    text-shadow: 0 0 5px #7ac7f7, 0 0 7px rgb(97, 63, 245);
+    text-align: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.input-container {
+    display: block;
+    background-color:rgb(199, 247, 247);
+    border: 1px solid grey;
+    width: 40vw;
+    height: 300px;
+    padding-top: 10px;
+    margin-left: 10vw;
+}
+
+.input-container-error {
+    background-color:rgb(199, 247, 247);
+    border: 1px solid grey;
+    width: 300px;
+    height: 380px;
+    padding-top: 10px;
+}
+
+.input-container form {
+    font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
+    text-align: center;
+    margin: 0 10px;
+}
+
+p {
+    margin: 0;
+    font-weight: 800;
+    border-bottom: 1px solid black;
+}
+
+/* Added padding to make format look nice and organized */
+.input-container form label {
+    display: inline-block;
+    padding: 5px 0px;
+}
+
+/* Added position relative to make these labels uniform with the other labels */
+#min-rlabel, #max-rlabel {
+    position: relative;
+}
+
+#min_cVal, #max_cVal, #min_rVal, #max_rVal {
+    width: 60px;
+}
+
+#submit-btn {
+    background-color: #42b3fa;
+    border: 1px solid lightskyblue;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    margin: 1.25vh;
+}
+
+/*  Made the button for removing all tabs positioned at a specific area, had I had more time
+    I could have position it better for smaller devices and larger ones */
+#destroy-btn {
+    display: none;
+    font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
+    background-color: #fa4251;
+    border: 1px solid rgb(243, 114, 125);
+    border-radius: 10px;
+    cursor: pointer;
+    color: #222;
+    margin: 1.25em auto;
+}
+
+/* Added a hover affect to make button look nice when hovering over */
+#submit-btn:hover {
+    background: linear-gradient(to bottom right, #6899FF, #f794e0);
+}
+
+/* Custom error message for jQuery Validation */
+.msg-error { /* Pretty much sets the text, and input box borders to be red in color */
+    border: 2px solid red;
+    display: inline-block;
+    margin: 0 auto;
+    color: #f31a24;
+}
+
+/* Added custom styling to the sliders */
+#sliderMinRow, #sliderMaxRow, #sliderMinCol, #sliderMaxCol {
+    background: blueviolet;
+    height: 15px;
+    width: 30vw;
+}
+
+/* Centered the sliders so that it matches everything else in the html form */
+.ui-slider-horizontal {
+    margin: 0 auto;
+    width: 200px;
+}
+
+.ui-widget-content .ui-state-default {
+    background: #4c41e0 !important;
+}
+
+.table-wrapper {
+    display: none;
+    max-width: 40vw;
+    max-height: 300px;
+    margin: 0 auto;
+    overflow-x: auto; /* Makes table responsive so when you scroll it doesnt strech out beyond the screen */
+    overflow-y: auto;
+}
+
+table {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+/*  Could not figure out how to make first row and column fixed inside scrollable container */
+/*  Not until i found this helpful stackoverflow link: Credit ->
+    https://stackoverflow.com/questions/15811653/table-with-fixed-header-and-fixed-column-on-pure-css */
+/*  Helped me out alot greatly on managing this part of the assignment and part of the code from the source
+    is transferred over to this css rule and another one down below with a few changes that I made to make
+    the code cleaner and less redudant while showing my understanding. Also in .table wrapper as well
+    (almost forgot about that section) */
+#Multiplication-Table tr:nth-child(1) {
+    position: sticky; /* Makes top header of table stay in place when scrolling vertically */
+    top: 0;
+}
+
+#Multiplication-Table tr:nth-child(1) > th, table tr:nth-child(1) > th, table tr th:first-child {
+    border: 1px solid black;
+}
+
+#Multiplication-Table tr th:first-child {
+    border: 1px solid black;
+    position: sticky; /* Makes first column of table stay in place when scrolling horizontailly */
+    left: 0;
+}
+
+/*  Makes the first table row and first table header blank just like the
+    example in the pdf sheet */
+#Multiplication-Table > tr:first-child > th:first-child, tr:first-child > th:first-child {
+    background-color: transparent;
+    border: none;
+}
+
+#Multiplication-Table > tr > td, tbody > tr > td {
+    display: table-cell;
+    border: 1px solid black;
+}
+
+/*  Made th text bolder and standout from the td */
+/*  so that way someone can distinguish between the top row and first column */
+th {
+    background-color: rgb(53, 103, 250);
+    color: #fff;
+    font-weight: 600;
+}
+
+td {
+    background-color: rgb(176, 224, 243);
+    color: #222;
+}
+
+/*  The CSS for the tabs section, made position absolute so i can put it at a specific area */
+/*  Had I had more time i could have made it better but this is the best i can do */
+/*  Made the height and width auto based on the size of the newly added tables and tabs*/
+#myTabs {
+    display: none;
+    position: inherit;
+    height: 95vh;
+    width: 95vw;
+    top: 400px;
+    margin: 0 auto;
+    overflow-x: scroll;
+}
+
+footer {
+    font-family: "Montserrat", Avenir, Helvetica, Arial, sans-serif;
+    margin: 1.05em auto;
+    text-align: center;
+    text-shadow: 0 0 5px #7ac7f7, 0 0 7px rgb(97, 63, 245);
+    font-weight: 600;
+}
